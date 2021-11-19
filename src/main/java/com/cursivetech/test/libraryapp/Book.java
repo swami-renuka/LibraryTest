@@ -1,38 +1,73 @@
 package com.cursivetech.test.libraryapp;
 
 import java.util.Date;
+ import java.util.*;
+ public class Book{
+     public static void main(String[] args){
+         Scanner s=new Scanner(System.in);
+         Library lib=new Library();
+         int i,choice;
+         for(i=0;i<50;i++){
+             System.out.println("1.Add Book");
+             System.out.println("2.Display all book details");
+             System.out.println("3.Display Name Of the book");
+	     System.out.println("4.Return Same book name");
+             System.out.println("5.Exit");
+	   System.out.println("6.Enter your choice");
+		     
+             choice=s.nextInt();s.nextLine();
+             if(choice==1){
+                 Book b=new Book();
+                 System.out.println("Enter the isbn no:");
+                 b.setIsbnno(s.nextInt());s.nextLine();
+                 System.out.println("Enter the book name:");
+                 b.setBookName(s.nextLine());
+                 System.out.println("Enter the author name:");
+                 b.setAuthor(s.nextLine());
+                 lib.addBook(b);
+             }
+             if(choice==2){
+                 ArrayList<Book> result=lib.viewAllBooks();
+                 if(result.isEmpty())
+                 {
+                     System.out.println("The list is empty");
+                     continue;
+                 }
+                 Iterator iter=result.iterator();
+                 while(iter.hasNext())
+                 {
+                     Book b=(Book)iter.next();
+                     System.out.println("Isbn No: "+b.getIsbnno());
+                     System.out.println("Book name:"+b.getBookName());
+                     System.out.println("Author name: "+b.getAuthor());
+                 }
+             }
+             if(choice==3){
+                 System.out.println("Enter the author name:");
+                 
+                 String name=s.nextLine();
+                 ArrayList<Book> result=lib.viewBooksByAuthor(name);
+                 if(result.isEmpty()){
+                     System.out.println("None of the book has same name "+name);
+                     continue;
+                 }
+                 Iterator iter=result.iterator();
+                 while(iter.hasNext()){
+                     
+                     Book b=(Book)iter.next();
+                     System.out.println("Isbn no: "+b.getIsbnno());
+                     System.out.println("Book name: "+b.getBookName());
+                     System.out.println("Author name: "+b.getAuthor());
+                 }
+             }
+             if(choice==4){
+                 System.out.println("Enter the book name");
+                 String name=s.nextLine();
+                 System.out.println("Count is "+lib.countnoofbook(name));
+             }
+             if(choice==5)
+             System.exit(0);
+         }
+     }
+ }
 
-public class Book {
-	
-	private int isbn;
-	
-	private String title;
-	
-	private Date releaseDate;
-	
-
-	public int getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(int isbn) {
-		this.isbn = isbn;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
-
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
-
-}
